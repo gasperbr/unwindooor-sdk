@@ -8,6 +8,7 @@
   "author": "Matthew Lilley <hello@matthewlilley.com>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "prepublish": "tsc",
     "test": "jest"
   },
@@ -32,9 +33,7 @@
     "lint-staged": ">=10",
     "prettier": "^2.2.1",
     "ts-jest": "^26.5.1",
-    "typescript": "^4.1.5"
-  },
-  "engines": {
-    "node": "12.x"
+    "typescript": "^4.1.5",
+    "ethers": "^5.5.2"
   }
 }
