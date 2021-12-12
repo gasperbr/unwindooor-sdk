@@ -1,10 +1,10 @@
 {
-  "name": "typescript-foundation",
+  "name": "unwindooor-sdk",
   "version": "1.0.0",
   "description": "TypeScript foundation for distributable packages",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/sushiswap/typescript-foundation.git",
+  "repository": "https://github.com/gasperbr/unwindooor-sdk.git",
   "author": "Matthew Lilley <hello@matthewlilley.com>",
   "license": "MIT",
   "scripts": {
