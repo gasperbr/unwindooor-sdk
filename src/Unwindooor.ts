@@ -9,12 +9,6 @@ export interface IUnwindorConstructorParams {
   priceSlippage: BigNumber;
 }
 
-interface UnwindPairData {
-  amount: BigNumber,
-  minimumOut: BigNumber,
-  keepToken0: boolean
-}
-
 export abstract class Unwindooor {
 
   wethMakerAddress!: string;
