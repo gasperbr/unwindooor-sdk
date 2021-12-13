@@ -2,10 +2,12 @@ import { BigNumber, Contract } from 'ethers';
 import { IUnwindorConstructorParams, Unwindooor } from './Unwindooor';
 interface IWethMakerConstructorParams extends IUnwindorConstructorParams {
     wethAddress: string;
+    sushiAddress: string;
     factoryAddress: string;
 }
 export declare class WethMaker extends Unwindooor {
     wethAddress: string;
+    sushiAddress: string;
     factory: Contract;
     maker: Contract;
     /**
@@ -15,7 +17,8 @@ export declare class WethMaker extends Unwindooor {
       * @param params.maxPriceImpact Price impact we accept. Default is 1%, throws error if exceeded.
       *  Use 10 for 1%, 5 for 0.5%. Can indicate we need to setup a bridge for a token.
       * @param params.priceSlippage Slippage we add on top of minimum out. Use 0 for none, 10 for 1%;
-      * @param params.wethAddress Wrapped Ethereum address.
+      * @param params.wethAddress Wrapped Ethereum token address.
+      * @param params.sushiAddress Sushi token address.
       * @param params.factoryAddress Sushi factory address.
       */
     constructor(params: IWethMakerConstructorParams);

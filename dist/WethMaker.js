@@ -18,12 +18,14 @@ class WethMaker extends Unwindooor_1.Unwindooor {
       * @param params.maxPriceImpact Price impact we accept. Default is 1%, throws error if exceeded.
       *  Use 10 for 1%, 5 for 0.5%. Can indicate we need to setup a bridge for a token.
       * @param params.priceSlippage Slippage we add on top of minimum out. Use 0 for none, 10 for 1%;
-      * @param params.wethAddress Wrapped Ethereum address.
+      * @param params.wethAddress Wrapped Ethereum token address.
+      * @param params.sushiAddress Sushi token address.
       * @param params.factoryAddress Sushi factory address.
       */
     constructor(params) {
         super(params);
         this.wethAddress = params.wethAddress;
+        this.sushiAddress = params.sushiAddress;
         this.factory = new ethers_1.Contract(params.factoryAddress, UniV2Factory_json_1.default, params.provider);
         this.maker = new ethers_1.Contract(params.wethMakerAddress, WethMaker_json_1.default, params.provider);
     }
@@ -43,8 +45,14 @@ class WethMaker extends Unwindooor_1.Unwindooor {
         return { amountIn, minimumOut };
     }
     async _getPair(inToken) {
-        const bridge = await this.maker.bridges(inToken);
-        const outToken = bridge === ethers_1.constants.AddressZero ? this.wethAddress : bridge;
+        let outToken;
+        if (inToken.toUpperCase() === this.wethAddress.toUpperCase()) {
+            outToken = this.sushiAddress;
+        }
+        else {
+            const bridge = await this.maker.bridges(inToken);
+            outToken = bridge === ethers_1.constants.AddressZero ? this.wethAddress : bridge;
+        }
         const pairFor = await this.factory.getPair(inToken, outToken);
         if (pairFor === ethers_1.constants.AddressZero)
             throw Error(`No direct pair found for ${inToken} ${outToken}, you need to set a bridge`);

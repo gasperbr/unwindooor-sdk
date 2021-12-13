@@ -45,7 +45,7 @@ export abstract class Unwindooor {
     this.priceSlippage = priceSlippage;
   }
 
-  updatePriceSlippage(amount: BigNumber) {
+  updatePriceSlippage(amount: BigNumber): void {
     this.priceSlippage = amount;
   }
 
@@ -54,7 +54,7 @@ export abstract class Unwindooor {
    * @param pairAddress Pair address.
    * @param unwindShare How much of our lp tokens we want to unwind. From 0 to 100 percent.
    */
-  async unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<UnwindPairData> {
+  async unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<{ amount: BigNumber, minimumOut: BigNumber, keepToken0: boolean }> {
 
     if (unwindShare.lte(0) || unwindShare.gt(100)) throw Error(`Valid values for unwindShare are (0, 100])`);
 

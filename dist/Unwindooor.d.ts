@@ -6,11 +6,6 @@ export interface IUnwindorConstructorParams {
     maxPriceImpact: BigNumber;
     priceSlippage: BigNumber;
 }
-interface UnwindPairData {
-    amount: BigNumber;
-    minimumOut: BigNumber;
-    keepToken0: boolean;
-}
 export declare abstract class Unwindooor {
     wethMakerAddress: string;
     preferTokens: string[];
@@ -32,7 +27,11 @@ export declare abstract class Unwindooor {
      * @param pairAddress Pair address.
      * @param unwindShare How much of our lp tokens we want to unwind. From 0 to 100 percent.
      */
-    unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<UnwindPairData>;
+    unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<{
+        amount: BigNumber;
+        minimumOut: BigNumber;
+        keepToken0: boolean;
+    }>;
     _getUnwindData(pairAddress: string): Promise<{
         token0: string;
         token1: string;
@@ -47,4 +46,3 @@ export declare abstract class Unwindooor {
     _addSlippage(amount: BigNumber): BigNumber;
     _checkPriceImpact(outAmount: BigNumber, perfectOut: BigNumber): void;
 }
-export {};

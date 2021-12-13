@@ -1,6 +1,6 @@
 import { providers, BigNumber, Contract } from "ethers";
 import { WethMaker } from "./WethMaker";
-import { WETH9_ADDRESS, FACTORY_ADDRESS } from "@sushiswap/core-sdk"
+import { WETH9_ADDRESS, FACTORY_ADDRESS, SUSHI_ADDRESS } from "@sushiswap/core-sdk"
 import UniV2ABI from "./abis/UniV2.json";
 import ERC20ABI from "./abis/ERC20.json";
 
@@ -14,6 +14,7 @@ const wethMaker = new WethMaker({
   maxPriceImpact: BigNumber.from(10), // 1%
   priceSlippage: BigNumber.from(2), // 0.2%
   wethAddress: WETH9_ADDRESS[137],
+  sushiAddress: SUSHI_ADDRESS[137],
   factoryAddress: FACTORY_ADDRESS[137]
 });
 
@@ -24,6 +25,7 @@ const _wethMaker = new WethMaker({
   maxPriceImpact: BigNumber.from(10), // 1%
   priceSlippage: BigNumber.from(2), // 0.2%
   wethAddress: WETH9_ADDRESS[137],
+  sushiAddress: SUSHI_ADDRESS[137],
   factoryAddress: FACTORY_ADDRESS[137]
 });
 
@@ -116,9 +118,11 @@ test("Should get market data", async () => {
 })
 
 test("Should get pair", async () => {
-  const pair = await _wethMaker._getPair("0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6");
+  let pair = await _wethMaker._getPair("0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6");
   expect(pair).toBe("0xE62Ec2e799305E0D367b0Cc3ee2CdA135bF89816");
   await expect(_wethMaker._getPair(wmaticQuickLp)).rejects.toThrow(`No direct pair found for ${wmaticQuickLp} ${wethMaker.wethAddress}, you need to set a bridge`);
+  pair = await _wethMaker._getPair(WETH9_ADDRESS[137]);
+  expect(pair.toLowerCase()).toBe("0xb5846453b67d0b4b4ce655930cf6e4129f4416d7");
 })
 
 test("sell token", async () => {
