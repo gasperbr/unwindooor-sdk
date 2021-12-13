@@ -16,6 +16,7 @@ Usage:
     maxPriceImpact,     // Price impact we accept. (Will throw an error if exceeded)
     priceSlippage,      // Slippage we allow
     wethAddress,        // Weth9 address
+    sushiAddress,       // Sushi address (only relevant when interacting with SushiMaker)
     factoryAddress      // Sushi factory address
   })
 ```
