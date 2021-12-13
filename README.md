@@ -1,5 +1,32 @@
-# TypeScript Foundation
+### Sdk for [Sushi / Weth makers](https://github.com/gasperbr/unwindooor).
+Calculates minimum output amounts.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+Instalation:
 
-Use this template when you want to publish a package which will be consumed by a Node 12.x runtime.
+`yarn add git+https://github.com/gasperbr/unwindooor-sdk.git`
+
+Usage:
+
+- instantiate class:
+```
+ const wethMaker = new WethMaker({
+    wethMakerAddress,   // address of the WethMaker or SushiMaker contracts
+    preferTokens,       // tokens we want to keep after removing liquidity [wethAddress, usdcAddress, ...]
+    provider,           // ethers.Provider provider
+    maxPriceImpact,     // Price impact we accept. (Will throw an error if exceeded)
+    priceSlippage,      // Slippage we allow
+    wethAddress,        // Weth9 address
+    factoryAddress      // Sushi factory address
+  })
+```
+- calculate min out for removing liquidity:
+```
+wethMaker.unwindPair(pairAddress, share)
+ ```
+ 
+- calculate min out for selling tokens:
+```
+wethMaker.sellToken(token, share)
+```
+ 
+Where share is how much of the current balance we want to sell, from (0, 100].
