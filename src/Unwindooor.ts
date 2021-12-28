@@ -48,7 +48,7 @@ export abstract class Unwindooor {
    * @param pairAddress Pair address.
    * @param unwindShare How much of our lp tokens we want to unwind. From 0 to 100 percent.
    */
-  async unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<{ amount: BigNumber, minimumOut: BigNumber, keepToken0: boolean }> {
+  async unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<{ amount: BigNumber, minimumOut: BigNumber, tokenA: string, tokenB: string }> {
 
     if (unwindShare.lte(0) || unwindShare.gt(100)) throw Error(`Valid values for unwindShare are (0, 100])`);
 
@@ -60,7 +60,9 @@ export abstract class Unwindooor {
 
     const minimumOut = this._getMinimumUnwindOut(reserve0, reserve1, amount, totalSupply, keepToken0);
 
-    return { amount, minimumOut, keepToken0 };
+    const [tokenA, tokenB] = keepToken0 ? [token0, token1] : [token1, token0];
+
+    return { amount, minimumOut, tokenA, tokenB };
 
   }
 
