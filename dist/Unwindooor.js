@@ -37,7 +37,8 @@ class Unwindooor {
         const amount = lpAmount.mul(unwindShare).div(100);
         const keepToken0 = this._keepToken0(token0, token1, this.preferTokens);
         const minimumOut = this._getMinimumUnwindOut(reserve0, reserve1, amount, totalSupply, keepToken0);
-        return { amount, minimumOut, keepToken0 };
+        const [tokenA, tokenB] = keepToken0 ? [token0, token1] : [token1, token0];
+        return { amount, minimumOut, tokenA, tokenB };
     }
     async _getUnwindData(pairAddress) {
         const pair = new ethers_1.Contract(pairAddress, UniV2_json_1.default, this.provider);

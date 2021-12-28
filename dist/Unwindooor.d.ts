@@ -30,7 +30,8 @@ export declare abstract class Unwindooor {
     unwindPair(pairAddress: string, unwindShare: BigNumber): Promise<{
         amount: BigNumber;
         minimumOut: BigNumber;
-        keepToken0: boolean;
+        tokenA: string;
+        tokenB: string;
     }>;
     _getUnwindData(pairAddress: string): Promise<{
         token0: string;
