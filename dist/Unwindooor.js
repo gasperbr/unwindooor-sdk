@@ -17,7 +17,7 @@ class Unwindooor {
       */
     constructor({ wethMakerAddress, preferTokens, provider, maxPriceImpact, priceSlippage }) {
         this.wethMakerAddress = wethMakerAddress;
-        this.preferTokens = preferTokens;
+        this.preferTokens = preferTokens.map(addr => addr.toLowerCase());
         this.provider = provider;
         this.maxPriceImpact = maxPriceImpact;
         this.priceSlippage = priceSlippage;
@@ -54,8 +54,8 @@ class Unwindooor {
         return { token0, token1, reserve0, reserve1, lpAmount, totalSupply };
     }
     _keepToken0(t0, t1, preferTokens) {
-        const index0 = preferTokens.indexOf(t0);
-        const index1 = preferTokens.indexOf(t1);
+        const index0 = preferTokens.indexOf(t0.toLowerCase());
+        const index1 = preferTokens.indexOf(t1.toLowerCase());
         if (index1 == -1)
             return true;
         if (index0 == -1)

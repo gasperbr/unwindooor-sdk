@@ -33,7 +33,7 @@ export abstract class Unwindooor {
     priceSlippage
   }: IUnwindorConstructorParams) {
     this.wethMakerAddress = wethMakerAddress;
-    this.preferTokens = preferTokens;
+    this.preferTokens = preferTokens.map(addr => addr.toLowerCase());
     this.provider = provider;
     this.maxPriceImpact = maxPriceImpact;
     this.priceSlippage = priceSlippage;
@@ -94,8 +94,8 @@ export abstract class Unwindooor {
   }
 
   _keepToken0(t0: string, t1: string, preferTokens: string[]): boolean {
-    const index0 = preferTokens.indexOf(t0);
-    const index1 = preferTokens.indexOf(t1);
+    const index0 = preferTokens.indexOf(t0.toLowerCase());
+    const index1 = preferTokens.indexOf(t1.toLowerCase());
     if (index1 == -1) return true;
     if (index0 == -1) return false;
     return index0 < index1;
